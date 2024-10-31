@@ -1,0 +1,336 @@
+@import 'bootstrap/bootstrap'
+@import 'tippy'
+
+body
+	padding-top: 3.5rem
+
+$gutter-container-max-widths: (md: 720px, lg: 960px, xl: 1140px)
+$gutter-container-breakpoints: (md: 768px, lg: 992px, xl: 1200px)
+
+@include media-breakpoint-up(md)
+	.container-full
+		@include make-container()
+		@include make-container-max-widths( $gutter-container-max-widths, $gutter-container-breakpoints )
+
+@include media-breakpoint-down(sm)
+	.container-full
+		> *
+			margin-right: 0
+			margin-left: 0
+			> *
+				padding-right: 0
+				padding-left: 0
+
+h1
+	padding-top: 3.5rem
+	.no-phone-title &
+		@extend .d-none
+		@extend .d-md-block
+
+li.back-to-wordpress
+	@extend .d-none
+	@extend .d-sm-block
+	a
+		padding: 0 0.5rem !important
+		font-size: 1.5rem
+
+li.groups
+	@extend .d-none
+	@extend .d-md-block
+
+.status
+	@extend .badge
+	&.status-pending
+		@extend .badge-warning
+	&.status-accepted
+		@extend .badge-success
+	&.status-new,
+	&.status-read
+		@extend .badge-primary
+	&.status-declined
+		@extend .badge-danger
+	&.status-unread
+		@extend .badge-secondary
+
+table.docs
+	@extend .table
+	a.doc
+		display: block
+		text-decoration: none
+	tr
+		transform-origin: top left
+		div.icon
+			min-height: 3em
+			color: #333
+			float: left
+			margin-right: 1rem
+	td.info
+		@extend .d-none
+		@extend .d-md-table-cell
+		text-align: left
+		white-space: nowrap
+		width: 0
+		small
+			color: #777
+	td.actions
+		width: 12rem
+		@extend .d-none
+		@extend .d-md-table-cell
+	td.title:hover
+		box-shadow: inset 0px 0px 65px -18px rgba(0, 0, 0, 0.15)
+		a.doc
+			color: #0056b3
+	.status
+		margin-right: 0.5rem
+
+.action-links
+	font-size: 1.2rem
+	a
+		text-decoration: none
+		color: #ddd
+		transition: color .2s ease-in-out
+		margin-right: 1.5rem
+		tr:hover &
+			color: #333
+		&:hover
+			@extend .text-primary
+		&.action-delete:hover
+			@extend .text-danger
+
+
+.drop-files-note
+	font-size: 1.8rem
+	line-height: 2rem
+
+.drop-files-or
+	font-size: 1.2rem
+	line-height: 2rem
+	text-transform: uppercase
+	color: #999
+
+.uploader-row
+	transition: opacity .3s ease-in-out
+	opacity: 0
+	&.open
+		opacity: 1
+
+@keyframes pulseUploader
+	0%
+		background: #eee
+		border-color: #ccc
+	50%
+		background: #ccc
+		border-color: #aaa
+	100%
+		background: #eee
+		border-color: #ccc
+
+.uploader
+	width: 100%
+	text-align: center
+	border: 5px dashed #ccc
+	margin-top: 2rem
+	position: relative
+	border-radius: 20px
+	&.drag-over
+		background: #eee
+		animation: pulseUploader linear 2s infinite
+		border: 5px solid #ccc
+		.drop-files-or,
+		.drag-drop-buttons
+			visibility: hidden
+
+.drag-drop-buttons
+	input
+		@extend .btn
+		@extend .btn-lg
+		@extend .btn-dark
+
+.drag-drop-inside
+	padding: 2rem
+	position: relative
+	pointer-events: none
+	.uploader.mouse-over &
+		pointer-events: auto
+
+.drag-drop-letgo
+	position: absolute
+	left: 0
+	right: 0
+	margin: 0 auto
+	bottom: 2rem
+
+.progress-bar
+	transition: width 4s ease
+
+ul.version
+	font-size: 0.7rem
+	a
+		text-align: center
+		padding: 0
+
+a.action
+	float: left
+	padding-right: 1rem
+	transition: color .2s ease-in-out
+	color: #999
+	li:hover &
+		color: #333
+	&:hover
+		@extend .text-primary
+	&.action-delete:hover
+		@extend .text-danger
+
+.reader-chooser
+	h4
+		font-size: 1rem
+		text-transform: uppercase
+		color: #aaa
+		font-weight: 200
+		letter-spacing: 1px
+		text-align: center
+	ul.readers,
+	ul.groups
+		list-style: none
+		padding-left: 0
+		li
+			@extend .clearfix
+			display: flex
+			align-items: center
+			clear: both
+			padding: 0.5rem
+			margin: 1rem 0
+			position: relative
+			.fa-users
+				margin-right: 0.5rem
+		.status
+			position: absolute
+			right: 0.5rem
+		span.info
+			float: left
+			line-height: 1rem
+			small
+				color: #777
+				&.pad-left
+					margin-left: 0.5rem
+					padding-left: 20px
+	.modal-body
+		padding: 0
+	div.readers,
+	div.available,
+	div.groups
+		min-height: 300px
+		padding-top: 1rem
+	div.available
+		li
+			box-shadow: 0 4px 4px rgba(0, 0, 0, 0.15)
+			background: #f5f5f5
+	div.readers,
+	div.groups
+		li
+			box-shadow: 0 4px 4px rgba(0, 0, 0, 0.15)
+			background: #f5f5f5
+	div.readers
+		box-shadow: inset 10px 0 15px -15px rgba(0,0,0,0.3)
+		li a.action
+			@extend .text-danger
+
+#top-nav
+	@extend .navbar
+	@extend .navbar-expand
+	@extend .navbar-dark
+	@extend .fixed-top
+	@extend .bg-dark
+	> div
+		max-width: 100%
+	li
+		&.logout span
+			@extend .d-none
+			@extend .d-lg-inline
+		&.profile span
+			@extend .d-none
+			@extend .d-lg-inline
+		&.main
+			min-width: 3rem
+			span
+				@extend .d-none
+				@extend .d-sm-inline
+				padding-left: 2.5rem
+			img.sd-logo
+				width: 2rem
+				position: absolute
+				top: 0.75rem
+
+ul.navbar-nav
+	white-space: nowrap
+
+ul.navbar-center
+	@extend .navbar-nav
+	@extend .mr-auto
+	@extend .version
+	overflow-x: hidden
+
+header h2
+	@extend .d-none
+	@extend .d-md-inline-block
+	color: #fff
+	font-size: 1rem
+	margin: 0
+
+li.center-item button
+	@extend .mx-1
+	@extend .mx-lg-2
+	font-size: 0.7rem
+
+@include media-breakpoint-up(sm)
+	li.center-item button
+		font-size: 1rem
+
+#scoutdocs-pdf
+	width: 100%
+	height: 100%
+	left: 0
+	top: 0
+	position: absolute
+	box-sizing: border-box
+	padding-top: 3.5rem
+	border: 0
+
+.logo-title
+	display: flex
+
+small.group-members
+	cursor: default
+
+img.logo
+	max-height: 100px
+	max-width: 300px
+	margin: 2rem 0
+	align-self: flex-end
+
+@include media-breakpoint-down(sm)
+	img.logo
+		margin: 1rem auto
+
+p.or-choose
+	@extend .text-center
+	margin-top: 1rem
+	color: #555
+
+p.no-readers
+	@extend .or-choose
+	margin-top: 50%
+
+ul.users-tooltip
+	@extend .d-flex
+	@extend .my-1
+	list-style: none
+	flex-direction: column
+	padding: 0
+	li
+		text-align: left
+	span.status
+		float: right
+		margin-left: 20px
+		top: 3px
+		position: relative
